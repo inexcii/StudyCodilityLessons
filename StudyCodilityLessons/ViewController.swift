@@ -20,9 +20,108 @@ class ViewController: UIViewController {
 //        var A = [42]
 //        print(solutionForLesson201(&A))
         
-//        var A = [3, 1, 2, 4, 3]
-        var A = [-1000, 1000]
-        print(solutionForLesson303(&A))
+//        var A303 = [3, 1, 2, 4, 3]
+//        var A303 = [-1000, 1000]
+//        print(solutionForLesson303(&A303))
+        
+//        var A401 = [4, 1, 3, 2]
+//        print(solutionForLesson401(&A401))
+        
+//        var A402 = [1, 1, 3, 3, 2, 1, 3, 4, 3, 5]
+//        var A402 = [1]
+//        print(solutionForLesson402(7, &A402))
+        
+//        var A403 = [3, 4, 4, 6, 1, 4, 4]
+        let N = 1
+        var A403 = [1]
+        print(solutionForLesson403(N, &A403))
+    }
+}
+
+// MARK: - Lesson 4: Counting Elements
+
+extension ViewController {
+    
+    // MARK: MaxCounters
+    func solutionForLesson403(_ N: Int, _ A: inout [Int]) -> [Int] {
+        
+        // submit 1: score 66(Correctness:100/Performance:40)
+        var dictionary = [Int: Int]()
+        for num in 1...N {
+            // [1:0, 2:0, 3:0, ... , N:0]
+            dictionary[num] = 0
+        }
+        
+        print(Array(dictionary.values))
+        
+        for num in A {
+            if num == N + 1 {
+                let maxCount = dictionary.values.max() ?? 0
+                dictionary.keys.forEach {
+                    dictionary[$0] = maxCount
+                }
+            } else {
+                dictionary[num]! += 1
+            }
+        }
+        
+        var values = [Int]()
+        for num in 1...N {
+            values.append(dictionary[num]!)
+        }
+        
+        return values
+    }
+    
+    // MARK: FrogRiverOne
+    func solutionForLesson402(_ X: Int, _ A: inout [Int]) -> Int {
+        var dictionary = [Int: Int]()
+        for (index, num) in A.enumerated() {
+            // save the first index of a number in A
+            if dictionary[num] == nil {
+                dictionary[num] = index
+            }
+        }
+        
+        var result = -1
+        for num in 1...X {
+            let index = dictionary[num]
+            if let index = index {
+                if index > result {
+                    result = index
+                }
+            } else {
+                return -1
+            }
+        }
+        
+        return result
+    }
+    
+    // MARK: PermCheck
+    func solutionForLesson401(_ A: inout [Int]) -> Int {
+        let array = A.sorted()
+        
+        for (index, num) in array.enumerated() {
+            if index == 0 {
+                // for first element
+                if num != 1 {
+                    return 0
+                } else {
+                    continue
+                }
+            } else if index == array.count - 1 && num != array.count {
+                // for last element
+                return 0
+            } else {
+                // for [2...last-1] element
+                if num - array[index - 1] != 1 {
+                    return 0
+                }
+            }
+        }
+        
+        return 1
     }
 }
 
