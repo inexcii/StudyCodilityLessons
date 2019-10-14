@@ -38,10 +38,55 @@ class ViewController: UIViewController {
         
 //        var S703 = "(()(())())"
         // invalid structure
-        var S703 = "(()))(()"
+//        var S703 = "(()))(()"
 //        var S703 = "())"
 //        var S703 = ""
-        print(solutionForLesson703(&S703))
+//        print(solutionForLesson703(&S703))
+        
+        var N1001 = 3628800
+        print(solutionForLesson1001(N1001))
+    }
+}
+
+// MARK: - Lesson 10: Prime and composite numbers
+
+extension ViewController {
+    
+    // MARK: CountFactors
+    func solutionForLesson1001(_ N: Int) -> Int {
+        
+        var i = 1
+        var result  = 0
+        while i * i < N {
+            if N % i == 0 {
+                result += 2
+            }
+            i += 1
+        }
+        if i * i == N {
+            result += 1
+        }
+        return result
+        
+        // submit 1: score 64(Correctness:100/Performance:16)
+        /*
+        var factors = [Int]()
+        
+        for number in 1...(N / 2) {
+            if factors.contains(number) {
+                continue
+            }
+            if N % number == 0 {
+                factors.append(number)
+                let M = N / number
+                if M != number {
+                    factors.append(M)
+                }
+            }
+        }
+        
+        return factors.count
+         */
     }
 }
 
