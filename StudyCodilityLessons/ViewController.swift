@@ -32,9 +32,39 @@ class ViewController: UIViewController {
 //        print(solutionForLesson402(7, &A402))
         
 //        var A403 = [3, 4, 4, 6, 1, 4, 4]
-        let N = 1
-        var A403 = [1]
-        print(solutionForLesson403(N, &A403))
+//        let N = 1
+//        var A403 = [1]
+//        print(solutionForLesson403(N, &A403))
+        
+//        var S703 = "(()(())())"
+        // invalid structure
+        var S703 = "(()))(()"
+//        var S703 = "())"
+//        var S703 = ""
+        print(solutionForLesson703(&S703))
+    }
+}
+
+// MARK: - Lesson 7: Stacks and Queues
+
+extension ViewController {
+    
+    // MARK: Nesting
+    func solutionForLesson703(_ S: inout String) -> Int {
+        var count = 0
+        for char in Array(S) {
+            if char == "(" {
+                count += 1
+            } else if char == ")" {
+                count -= 1
+                // check for invalid-structure
+                if count < 0 {
+                    return 0
+                }
+            }
+        }
+        
+        return count == 0 ? 1: 0
     }
 }
 
